@@ -1,0 +1,27 @@
+1.更好的burn-in 让burn-in突破76.8%
+2.更好的域适应策略，突破78.2%
+source only:burn-in
+Oracle:burn-in+distill
+
+burn-in原文最佳纪录为76.8，自己跑出的是76.07045,修改为SUFL后，跑出的结果为76.41554
+
+burn-in: 
+        |     model     |      burn in    |     distill   |         res         |
+        |:------------: |:-------:--------|:------:-------|:---------:----------|
+        |     model     |  loss  |   AUG  |  loss | AUG   |  burn-in |  distill |          
+        |:------------: |:-------:--------|:------:-------|:---------:----------|
+        |   baseline    |    CE  |  BASE  |   CE  |  BASE | 76.54306 |
+        |baseline+casual|    CE  |  casual0.1  |   CE  |  BASE | 76.54306 |
+        |   mywork      |    CE  |  BASE  |   CE  |  BASE | 76.54306 |
+    baseline                  :76.54306
+    baseline+casual_0.1       :76.21255
+    baseline+casual_0.3       :76.96032
+    baseline+casual_0.5       :76.64766
+    baseline+casual_0.7       :76.52205
+    baseline+casual_1.0       :76.72477
+distill:
+    a.baseline+原损失函数+原蒸馏 :              原文77.75145
+    b.0.3的casual增强+原损失函数+0.3的casual蒸馏:77.45338
+    b.0.3的casual增强+原损失函数+原蒸馏:77.6
+    d.0.3的casual增强+SUFL = 77.776
+

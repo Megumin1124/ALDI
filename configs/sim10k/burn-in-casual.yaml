@@ -1,0 +1,28 @@
+_BASE_: "../Base-RCNN-FPN.yaml"
+MODEL:
+  ROI_HEADS:
+    NUM_CLASSES: 1
+DATASETS:
+  #TRAIN: ("sim10k_cars_1_train",)
+  TRAIN: ("sim10k_cars_3_train",)
+  #TRAIN: ("sim10k_cars_5_train",)
+  #TRAIN: ("sim10k_cars_7_train",)
+  #TRAIN: ("sim10k_cars_10_train",)
+  TEST: ("cityscapes_cars_val",)
+  BATCH_CONTENTS: ("labeled_strong", )
+EMA:
+  ENABLED: True
+SOLVER:
+  STEPS: (2999,)
+  MAX_ITER: 3000
+  CHECKPOINT_PERIOD: 1000
+TEST:
+  EVAL_PERIOD: 100
+DOMAIN_ADAPT:
+  CLS_LOSS_TYPE : "CE" # one of: { "CE", "KL" }
+
+#OUTPUT_DIR: "output/sim10k/burn_in/casual_0.1/"
+OUTPUT_DIR: "output/sim10k/burn_in/casual_0.3/"
+#OUTPUT_DIR: "output/sim10k/burn_in/casual_0.5/"
+#OUTPUT_DIR: "output/sim10k/burn_in/casual_0.7/"
+#OUTPUT_DIR: "output/sim10k/burn_in/casual_1.0/"

@@ -1,0 +1,49 @@
+train_net.py
+    trainer = ALDITrainer(cfg)
+    return trainer.train()
+    ALDITrainer 是 trainer.py 定义的, 因此先搞懂ALDITrainer
+
+trainer.py
+    ALDITrainer 继承自 dropin.DefaultTrainer,
+        dropin.DefaultTrainer 继承自 detectron2.DefaultTrainer
+            detectron2.DefaultTrainer 继承自 detectron2.train_loop.TrainerBase
+        TrainerBase基本的函数有:
+            __init__()
+            train()---- 1.before_step() 
+                        2.run_step() 
+                        3.after_step() 
+                        4.after_train()
+            before_train()
+            after_train()
+            before_step()
+            def after_backward()
+            def after_step()
+            def run_step()
+    ALDITrainer.train()首先执行__init__(): #dropin中父函数的init
+        self._trainer = self._create_trainer():
+            distiller由build_distiller()构建
+            _trainer是 ALDIAMPTrainer
+        model = build_model(cfg) = build_aldi(cfg)
+        data_loader = self.build_train_loader(cfg)
+    *before_step():
+        更新模型权重
+    *run_step():
+        self._trainer.run_step() #继承自父类的父类的run_step()
+        因此执行 ALDIAMPTrainer.run_step()
+            获取迭代器
+            执行前向传播 run_model() 获取损失
+                run_model() 执行 run_model_labeled_unlabeled()
+
+            损失反向传播
+    *after_step():无实现
+    *after_train():无实现
+
+
+
+
+        
+        
+
+
+
+

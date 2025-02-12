@@ -1,0 +1,22 @@
+inputs:
+tensor([[ 0.8247, -1.0596],
+        [-0.1710,  0.1627],
+        [ 1.8545, -1.8984],
+        ...,
+        [-3.3438,  3.1406],
+        [-2.4375,  2.5000],
+        [-3.2949,  3.0254]], device='cuda:1', dtype=torch.float16,
+       grad_fn=<AddmmBackward0>)
+targets:
+tensor([[0.9446, 0.0554],
+        [0.8775, 0.1225],
+        [0.9861, 0.0139],
+        ...,
+        [0.0010, 0.9990],
+        [0.0014, 0.9986],
+        [0.0054, 0.9946]], device='cuda:1')
+# 对输入 logits 应用 softmax，将其转换为概率
+pred_prob = F.softmax(y_pred, dim=1)
+# 计算交叉熵
+loss = -torch.sum(y_true * torch.log(pred_prob ), dim=1).mean()
+print(torch.sum(y_true[:,0] * torch.log(pred_prob[:,0])+y_true[:,1]* torch.log(pred_prob[:,1])))

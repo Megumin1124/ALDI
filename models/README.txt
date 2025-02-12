@@ -1,0 +1,1 @@
+models/model_final_f10217.pkl  COCO Instance Segmentation Baselines with Mask R-CNN  
